@@ -73,8 +73,15 @@ export class MoviesRepository {
     const oldCandies = await this.movieRepository.findOneBy({
       idMovies: id,
     });
-    const updatedMovie = Object.assign(oldCandies, updateMovieDto);
-    await this.movieRepository.save(updatedMovie);
+
+    // Pour les champs NON changés, on affiche les anciens
+    Object.keys(updateMovieDto).forEach((key) => {
+      if (updateMovieDto[key] !== undefined) {
+        oldCandies[key] = updateMovieDto[key];
+      }
+    });
+
+    const updatedMovie = await this.movieRepository.save(oldCandies);
     return updatedMovie;
   }
 

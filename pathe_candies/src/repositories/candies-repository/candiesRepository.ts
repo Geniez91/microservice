@@ -50,8 +50,13 @@ export class CandiesRepository {
     const oldCandies = await this.candyRepository.findOneBy({
       idCandy: id,
     });
-    const updatedCandy = Object.assign(oldCandies, updateCandyDto);
-    return await this.candyRepository.save(updatedCandy);
+    // Pour les champs NON changés, on affiche les anciens
+    Object.keys(updateCandyDto).forEach((key) => {
+      if (updateCandyDto[key] !== undefined) {
+        oldCandies[key] = updateCandyDto[key];
+      }
+    });
+    return await this.candyRepository.save(oldCandies);
   }
 
   async removeCandy(id: number): Promise<candyRepositoryModel> {
