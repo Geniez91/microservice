@@ -32,10 +32,10 @@ export class CandiesController {
     };
 
     try {
-      await this.candyService.searchForCandies(candiesForService); // Appel de la méthode du service
-      console.log('test');
+      await this.candyService.searchForCandies(candiesForService);
+      return candiesForService;
     } catch (error) {
-      console.log(error); // Transmettre l'erreur à l'erreur middleware
+      throw error;
     }
   }
 

@@ -1,9 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import candyRepositoryModel from './moviesRespositoryModel';
 import { Candies } from 'src/entities/candies.entity';
-import MovieModel from 'src/controllers/candies/candies-model';
+import candyRepositoryModel from './candiesRespositoryModel';
 
 @Injectable()
 export class CandiesRepository {
@@ -20,7 +19,7 @@ export class CandiesRepository {
       throw error; // Rethrow the error to handle it in a different layer
     }
   }
-  async findAllMovies(): Promise<MovieModel[]> {
+  async findAllCandies(): Promise<candyRepositoryModel[]> {
     try {
       // Récupérer tous les films depuis la base de données
       const candies = await this.candyRepository.find();
