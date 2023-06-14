@@ -13,7 +13,7 @@ export class CandyService {
       weight: candies.weight,
       price: candies.price,
     };
-    await this.candiesRepository.saveMovie(candiesRepositoryObject);
+    await this.candiesRepository.saveCandy(candiesRepositoryObject);
   }
 
   async findAllCandies(): Promise<CandyModelService[]> {

@@ -10,10 +10,7 @@ import {
 import MovieModel from './movies-model';
 import MovieModelService from 'src/services/movies/movies-models-services';
 import { MovieService } from '../../services/movies/movies-service';
-import { Observable, lastValueFrom } from 'rxjs';
 import { HttpService } from '@nestjs/axios';
-import { AxiosResponse } from 'axios';
-import CandyModel from './candies-model';
 import MoviesCandies from './movies-candies-model';
 
 @Controller('movies')

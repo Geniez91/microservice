@@ -11,17 +11,16 @@ export class CandiesRepository {
     private candyRepository: Repository<candyRepositoryModel>,
   ) {}
 
-  async saveMovie(candyData: candyRepositoryModel): Promise<void> {
+  async saveCandy(candyData: candyRepositoryModel): Promise<void> {
     try {
       await this.candyRepository.save(candyData);
     } catch (error) {
       console.error(error);
-      throw error; // Rethrow the error to handle it in a different layer
+      throw error;
     }
   }
   async findAllCandies(): Promise<candyRepositoryModel[]> {
     try {
-      // Récupérer tous les films depuis la base de données
       const candies = await this.candyRepository.find();
 
       return candies;
