@@ -40,4 +40,19 @@ export class MovieService {
 
     return moviesCandies;
   }
+
+  async findOneMovie(id: number): Promise<MovieModelService> {
+    return this.moviesRepository.findOneMovies(id);
+  }
+
+  async updateOneMovie(
+    id: number,
+    updateMoviesDto: MovieModelService,
+  ): Promise<MovieModelService> {
+    return this.moviesRepository.updateMovie(id, updateMoviesDto);
+  }
+
+  async deleteOneMovie(id: number): Promise<MovieModelService> {
+    return this.moviesRepository.removeMovie(id);
+  }
 }

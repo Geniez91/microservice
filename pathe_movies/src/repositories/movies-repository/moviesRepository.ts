@@ -1,6 +1,6 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { FindOneOptions, Repository } from 'typeorm';
 import { movieRepositoryModel } from '../movies-repository/moviesRespositoryModel';
 import { Movies } from 'src/entities/movies.entity';
 import { Observable, lastValueFrom } from 'rxjs';
@@ -53,5 +53,35 @@ export class MoviesRepository {
       console.error(error);
       throw error;
     }
+  }
+  async findOneMovies(id: number): Promise<movieRepositoryModel> {
+    const params: FindOneOptions<movieRepositoryModel> = {
+      where: { idMovies: id },
+    };
+
+    const movie = await this.movieRepository.findOne(params);
+
+    if (!movie) {
+      throw new NotFoundException('Movie not found');
+    }
+    return movie;
+  }
+  async updateMovie(
+    id: number,
+    updateMovieDto: movieRepositoryModel,
+  ): Promise<movieRepositoryModel> {
+    const oldCandies = await this.movieRepository.findOneBy({
+      idMovies: id,
+    });
+    const updatedCandy = Object.assign(oldCandies, updateMovieDto);
+    return await this.movieRepository.save(updatedCandy);
+  }
+
+  async removeMovie(id: number): Promise<movieRepositoryModel> {
+    const deleteCandy = await this.movieRepository.findOneBy({
+      idMovies: id,
+    });
+    await this.movieRepository.delete(deleteCandy);
+    return deleteCandy;
   }
 }

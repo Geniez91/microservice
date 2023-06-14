@@ -64,4 +64,21 @@ export class MoviesController {
 
     return movies;
   }
+  @Get(':id')
+  async findOne(@Param('id') id: string): Promise<MovieModel> {
+    return await this.movieService.findOneMovie(+id);
+  }
+
+  @Patch(':id')
+  update(
+    @Param('id') id: string,
+    @Body() updateMovieDto: MovieModel,
+  ): Promise<MovieModel> {
+    return this.movieService.updateOneMovie(+id, updateMovieDto);
+  }
+
+  @Delete(':id')
+  remove(@Param('id') id: string): Promise<MovieModel> {
+    return this.movieService.deleteOneMovie(+id);
+  }
 }

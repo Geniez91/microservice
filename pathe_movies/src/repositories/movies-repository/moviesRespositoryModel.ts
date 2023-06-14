@@ -1,4 +1,5 @@
 export interface movieRepositoryModel {
+  idMovies?: number;
   title: string;
   director: string;
   duration: number;
