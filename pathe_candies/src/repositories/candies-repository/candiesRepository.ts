@@ -1,6 +1,6 @@
-import { Injectable } from '@nestjs/common';
+import { Get, Injectable, NotFoundException, Param } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { FindOneOptions, Repository } from 'typeorm';
 import { Candies } from 'src/entities/candies.entity';
 import candyRepositoryModel from './candiesRespositoryModel';
 
@@ -29,5 +29,37 @@ export class CandiesRepository {
       console.error(error);
       throw error;
     }
+  }
+
+  async findOneCandy(id: number): Promise<candyRepositoryModel> {
+    const params: FindOneOptions<candyRepositoryModel> = {
+      where: { idCandy: id },
+    };
+
+    const candy = await this.candyRepository.findOne(params);
+
+    if (!candy) {
+      throw new NotFoundException('Candy not found');
+    }
+    return candy;
+  }
+
+  async updateCandy(
+    id: number,
+    updateCandyDto: candyRepositoryModel,
+  ): Promise<candyRepositoryModel> {
+    const oldCandies = await this.candyRepository.findOneBy({
+      idCandy: id,
+    });
+    const updatedCandy = Object.assign(oldCandies, updateCandyDto);
+    return await this.candyRepository.save(updatedCandy);
+  }
+
+  async removeCandy(id: number): Promise<candyRepositoryModel> {
+    const deleteCandy = await this.candyRepository.findOneBy({
+      idCandy: id,
+    });
+    await this.candyRepository.delete(deleteCandy);
+    return deleteCandy;
   }
 }

@@ -19,4 +19,19 @@ export class CandyService {
   async findAllCandies(): Promise<CandyModelService[]> {
     return this.candiesRepository.findAllCandies();
   }
+
+  async findOneCandy(id: number): Promise<CandyModelService> {
+    return this.candiesRepository.findOneCandy(id);
+  }
+
+  async updateOneCandy(
+    id: number,
+    updateCandyDto: CandyModelService,
+  ): Promise<CandyModelService> {
+    return this.candiesRepository.updateCandy(id, updateCandyDto);
+  }
+
+  async deleteOneCandy(id: number): Promise<CandyModelService> {
+    return this.candiesRepository.removeCandy(id);
+  }
 }

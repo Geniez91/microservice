@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  NotFoundException,
 } from '@nestjs/common';
 import CandyModel from './candies-model';
 import CandyModelService from 'src/services/candies/candies-models-services';
@@ -42,5 +43,23 @@ export class CandiesController {
   @Get()
   async findAll(): Promise<CandyModel[]> {
     return this.candyService.findAllCandies();
+  }
+
+  @Get(':id')
+  async findOne(@Param('id') id: string): Promise<CandyModel> {
+    return await this.candyService.findOneCandy(+id);
+  }
+
+  @Patch(':id')
+  update(
+    @Param('id') id: string,
+    @Body() updateCandyDto: CandyModel,
+  ): Promise<CandyModel> {
+    return this.candyService.updateOneCandy(+id, updateCandyDto);
+  }
+
+  @Delete(':id')
+  remove(@Param('id') id: string): Promise<CandyModel> {
+    return this.candyService.deleteOneCandy(+id);
   }
 }
