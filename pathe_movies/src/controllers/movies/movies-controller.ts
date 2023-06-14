@@ -64,11 +64,4 @@ export class MoviesController {
 
     return movies;
   }
-
-  // @Get()
-  // async findAllCandies(): Promise<CandyModel[]> {
-  //   const candies = await this.movieService.findAllCandies();
-
-  //   return candies;
-  // }
 }

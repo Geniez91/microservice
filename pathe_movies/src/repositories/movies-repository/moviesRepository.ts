@@ -3,11 +3,10 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { movieRepositoryModel } from '../movies-repository/moviesRespositoryModel';
 import { Movies } from 'src/entities/movies.entity';
-import MovieModel from 'src/controllers/movies/movies-model';
 import { Observable, lastValueFrom } from 'rxjs';
 import { AxiosResponse } from 'axios';
 import { HttpService } from '@nestjs/axios';
-import CandyModel from 'src/controllers/movies/candies-model';
+import candyRepositoryModel from './candiesRespositoryModel';
 
 @Injectable()
 export class MoviesRepository {
@@ -21,13 +20,11 @@ export class MoviesRepository {
     try {
       await this.movieRepository.save(movieData);
     } catch (error) {
-      console.error(error);
-      throw error; // Rethrow the error to handle it in a different layer
+      throw error;
     }
   }
-  async findAllMovies(): Promise<MovieModel[]> {
+  async findAllMovies(): Promise<movieRepositoryModel[]> {
     try {
-      // Récupérer tous les films depuis la base de données
       const movies = await this.movieRepository.find();
 
       return movies;
@@ -37,11 +34,11 @@ export class MoviesRepository {
     }
   }
 
-  async findAllCandies(): Promise<CandyModel[]> {
+  async findAllCandies(): Promise<candyRepositoryModel[]> {
     try {
       const candyServiceUrl = 'http://localhost:3001/candies';
-      let response: Observable<AxiosResponse<CandyModel[]>>;
-      let candies: CandyModel[];
+      let response: Observable<AxiosResponse<candyRepositoryModel[]>>;
+      let candies: candyRepositoryModel[];
 
       // eslint-disable-next-line prefer-const
       response = this.httpService.get(candyServiceUrl);

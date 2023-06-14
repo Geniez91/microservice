@@ -1,11 +1,9 @@
 import movieRepositoryModel from 'src/repositories/movies-repository/moviesRespositoryModel';
 import MovieModelService from './movies-models-services';
-
 import { Injectable } from '@nestjs/common';
 import { MoviesRepository } from 'src/repositories/movies-repository/moviesRepository';
-import MovieModel from 'src/controllers/movies/movies-model';
-import MoviesCandies from 'src/controllers/movies/movies-candies-model';
-import CandyModel from 'src/controllers/movies/candies-model';
+import MoviesCandiesModelService from './movies-candies-models-service';
+import CandyModelService from './candies-models-service';
 
 @Injectable()
 export class MovieService {
@@ -23,19 +21,19 @@ export class MovieService {
     await this.moviesRepository.saveMovie(moviesRepositoryObject);
   }
 
-  async findAllMovies(): Promise<MovieModel[]> {
+  async findAllMovies(): Promise<MovieModelService[]> {
     return this.moviesRepository.findAllMovies();
   }
 
-  async findAllCandies(): Promise<CandyModel[]> {
+  async findAllCandies(): Promise<CandyModelService[]> {
     return this.moviesRepository.findAllCandies();
   }
 
-  async findAllCandiesMovies(): Promise<MoviesCandies> {
+  async findAllCandiesMovies(): Promise<MoviesCandiesModelService> {
     const movies = await this.moviesRepository.findAllMovies();
     const candies = await this.moviesRepository.findAllCandies();
 
-    const moviesCandies: MoviesCandies = {
+    const moviesCandies: MoviesCandiesModelService = {
       movies: movies,
       candies: candies,
     };

@@ -2,7 +2,7 @@ export interface candyRepositoryModel {
   name: string;
   type: string;
   weight: string;
-  number: number;
+  price: number;
 }
 
 export default candyRepositoryModel;
