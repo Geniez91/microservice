@@ -44,10 +44,10 @@ export class MoviesController {
     };
 
     try {
-      await this.movieService.searchForMovies(moviesForService); // Appel de la méthode du service
-      console.log('test');
+      await this.movieService.searchForMovies(moviesForService);
+      return moviesForService;
     } catch (error) {
-      console.log(error); // Transmettre l'erreur à l'erreur middleware
+      throw error;
     }
   }
 
