@@ -16,7 +16,7 @@ import { MoviesModule } from './movies.module';
       port: 3307,
       username: 'root',
       password: '',
-      database: 'microservice',
+      database: 'movies',
       entities: [Movies],
       synchronize: true, // crée les tables de la db
       autoLoadEntities: true,

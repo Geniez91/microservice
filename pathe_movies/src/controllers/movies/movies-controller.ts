@@ -10,10 +10,18 @@ import {
 import MovieModel from './movies-model';
 import MovieModelService from 'src/services/movies/movies-models-services';
 import { MovieService } from '../../services/movies/movies-service';
+import { Observable, lastValueFrom } from 'rxjs';
+import { HttpService } from '@nestjs/axios';
+import { AxiosResponse } from 'axios';
+import CandyModel from './candies-model';
+import MoviesCandies from './movies-candies-model';
 
 @Controller('movies')
 export class MoviesController {
-  constructor(private readonly movieService: MovieService) {} // Injectez le service approprié ici
+  constructor(
+    private readonly movieService: MovieService, // public readonly httpService: HttpService,
+    private readonly httpService: HttpService,
+  ) {}
 
   @Post()
   async create(@Body() body) {
@@ -44,7 +52,23 @@ export class MoviesController {
   }
 
   @Get()
-  async findAll(): Promise<MovieModel[]> {
-    return this.movieService.findAllMovies();
+  async findAll(): Promise<MoviesCandies> {
+    const moviesAndCandies = await this.movieService.findAllCandiesMovies();
+
+    return moviesAndCandies;
   }
+
+  @Get()
+  async findAllMovie(): Promise<MovieModel[]> {
+    const movies = await this.movieService.findAllMovies();
+
+    return movies;
+  }
+
+  // @Get()
+  // async findAllCandies(): Promise<CandyModel[]> {
+  //   const candies = await this.movieService.findAllCandies();
+
+  //   return candies;
+  // }
 }
