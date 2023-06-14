@@ -55,7 +55,20 @@ export class CandiesController {
     @Param('id') id: string,
     @Body() updateCandyDto: CandyModel,
   ): Promise<CandyModel> {
-    return this.candyService.updateOneCandy(+id, updateCandyDto);
+    const candies: CandyModel = {
+      name: updateCandyDto.name,
+      type: updateCandyDto.type,
+      weight: updateCandyDto.weight,
+      price: updateCandyDto.price,
+    };
+
+    const candiesForService: CandyModelService = {
+      name: candies.name,
+      type: candies.type,
+      weight: candies.weight,
+      price: candies.price,
+    };
+    return this.candyService.updateOneCandy(+id, candiesForService);
   }
 
   @Delete(':id')

@@ -67,11 +67,28 @@ export class MoviesController {
   }
 
   @Patch(':id')
-  update(
+  async update(
     @Param('id') id: string,
     @Body() updateMovieDto: MovieModel,
   ): Promise<MovieModel> {
-    return this.movieService.updateOneMovie(+id, updateMovieDto);
+    const movies: MovieModel = {
+      director: updateMovieDto.director,
+      duration: updateMovieDto.duration,
+      nationality: updateMovieDto.nationality,
+      realease_date: updateMovieDto.realease_date,
+      synopsis: updateMovieDto.synopsis,
+      title: updateMovieDto.title,
+    };
+
+    const moviesForService: MovieModelService = {
+      director: movies.director,
+      duration: movies.duration,
+      nationality: movies.nationality,
+      realease_date: movies.realease_date,
+      synopsis: movies.synopsis,
+      title: movies.title,
+    };
+    return await this.movieService.updateOneMovie(+id, moviesForService);
   }
 
   @Delete(':id')

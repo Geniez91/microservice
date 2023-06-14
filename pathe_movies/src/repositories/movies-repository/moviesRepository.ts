@@ -73,15 +73,16 @@ export class MoviesRepository {
     const oldCandies = await this.movieRepository.findOneBy({
       idMovies: id,
     });
-    const updatedCandy = Object.assign(oldCandies, updateMovieDto);
-    return await this.movieRepository.save(updatedCandy);
+    const updatedMovie = Object.assign(oldCandies, updateMovieDto);
+    await this.movieRepository.save(updatedMovie);
+    return updatedMovie;
   }
 
   async removeMovie(id: number): Promise<movieRepositoryModel> {
-    const deleteCandy = await this.movieRepository.findOneBy({
+    const deleteMovie = await this.movieRepository.findOneBy({
       idMovies: id,
     });
-    await this.movieRepository.delete(deleteCandy);
-    return deleteCandy;
+    await this.movieRepository.delete(deleteMovie);
+    return deleteMovie;
   }
 }

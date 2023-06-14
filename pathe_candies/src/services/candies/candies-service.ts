@@ -28,7 +28,13 @@ export class CandyService {
     id: number,
     updateCandyDto: CandyModelService,
   ): Promise<CandyModelService> {
-    return this.candiesRepository.updateCandy(id, updateCandyDto);
+    const candiesRepositoryObject: CandyModelService = {
+      name: updateCandyDto.name,
+      type: updateCandyDto.type,
+      weight: updateCandyDto.weight,
+      price: updateCandyDto.price,
+    };
+    return this.candiesRepository.updateCandy(id, candiesRepositoryObject);
   }
 
   async deleteOneCandy(id: number): Promise<CandyModelService> {

@@ -49,7 +49,15 @@ export class MovieService {
     id: number,
     updateMoviesDto: MovieModelService,
   ): Promise<MovieModelService> {
-    return this.moviesRepository.updateMovie(id, updateMoviesDto);
+    const moviesRepositoryObject: movieRepositoryModel = {
+      director: updateMoviesDto.director,
+      duration: updateMoviesDto.duration,
+      nationality: updateMoviesDto.nationality,
+      realease_date: updateMoviesDto.realease_date,
+      synopsis: updateMoviesDto.synopsis,
+      title: updateMoviesDto.title,
+    };
+    return this.moviesRepository.updateMovie(id, moviesRepositoryObject);
   }
 
   async deleteOneMovie(id: number): Promise<MovieModelService> {
