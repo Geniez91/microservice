@@ -17,6 +17,7 @@ export class MovieService {
       realease_date: movies.realease_date,
       synopsis: movies.synopsis,
       title: movies.title,
+      availableTickets: movies.availableTickets,
     };
     await this.moviesRepository.saveMovie(moviesRepositoryObject);
   }
@@ -56,6 +57,7 @@ export class MovieService {
       realease_date: updateMoviesDto.realease_date,
       synopsis: updateMoviesDto.synopsis,
       title: updateMoviesDto.title,
+      availableTickets: updateMoviesDto.availableTickets,
     };
     return this.moviesRepository.updateMovie(id, moviesRepositoryObject);
   }

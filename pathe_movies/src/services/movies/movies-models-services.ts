@@ -5,4 +5,5 @@ export default interface MovieModelService {
   synopsis: string;
   nationality: string;
   realease_date: Date;
+  availableTickets: number;
 }

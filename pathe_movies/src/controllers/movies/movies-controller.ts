@@ -29,6 +29,7 @@ export class MoviesController {
       realease_date: body.realease_date,
       synopsis: body.synopsis,
       title: body.title,
+      availableTickets: body.availableTickets,
     };
 
     const moviesForService: MovieModelService = {
@@ -38,6 +39,7 @@ export class MoviesController {
       realease_date: movies.realease_date,
       synopsis: movies.synopsis,
       title: movies.title,
+      availableTickets: movies.availableTickets,
     };
 
     try {
@@ -78,6 +80,7 @@ export class MoviesController {
       realease_date: updateMovieDto.realease_date,
       synopsis: updateMovieDto.synopsis,
       title: updateMovieDto.title,
+      availableTickets: updateMovieDto.availableTickets,
     };
 
     const moviesForService: MovieModelService = {
@@ -87,6 +90,7 @@ export class MoviesController {
       realease_date: movies.realease_date,
       synopsis: movies.synopsis,
       title: movies.title,
+      availableTickets: movies.availableTickets,
     };
     return await this.movieService.updateOneMovie(+id, moviesForService);
   }

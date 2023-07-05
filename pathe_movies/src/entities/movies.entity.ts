@@ -22,4 +22,7 @@ export class Movies {
 
   @Column()
   realease_date: Date;
+
+  @Column()
+  availableTickets: number;
 }

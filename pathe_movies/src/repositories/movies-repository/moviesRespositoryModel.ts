@@ -6,6 +6,7 @@ export interface movieRepositoryModel {
   synopsis: string;
   nationality: string;
   realease_date: Date;
+  availableTickets: number;
 }
 
 export default movieRepositoryModel;
