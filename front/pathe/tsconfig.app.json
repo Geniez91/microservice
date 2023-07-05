@@ -1,0 +1,19 @@
+{
+  "extends": "@vue/tsconfig/tsconfig.dom.json",
+  "files": [
+    "env.d.ts",
+    "src/main.ts",
+    "src/**/*.vue",
+    "src/**/*.ts",
+    "src/services/movies.services.ts",
+    "src/interfaces/movies.ts"
+  ],
+  "exclude": ["src/**/__tests__/*"],
+  "compilerOptions": {
+    "composite": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  }
+}
