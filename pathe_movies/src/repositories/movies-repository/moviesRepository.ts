@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Body, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { FindOneOptions, Repository } from 'typeorm';
 import { movieRepositoryModel } from '../movies-repository/moviesRespositoryModel';
@@ -82,6 +82,23 @@ export class MoviesRepository {
     });
 
     const updatedMovie = await this.movieRepository.save(oldCandies);
+    return updatedMovie;
+  }
+
+  async updateQuantity(
+    id: number,
+    ticketCount: number,
+  ): Promise<movieRepositoryModel> {
+    const oldCandies = await this.movieRepository.findOneBy({
+      idMovies: id,
+    });
+
+    const updateTickets = {
+      ...oldCandies,
+      availableTickets: oldCandies.availableTickets - ticketCount,
+    };
+
+    const updatedMovie = await this.movieRepository.save(updateTickets);
     return updatedMovie;
   }
 

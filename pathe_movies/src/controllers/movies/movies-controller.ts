@@ -12,11 +12,13 @@ import MovieModelService from 'src/services/movies/movies-models-services';
 import { MovieService } from '../../services/movies/movies-service';
 import { HttpService } from '@nestjs/axios';
 import MoviesCandies from './movies-candies-model';
+import { MoviesRepository } from 'src/repositories/movies-repository/moviesRepository';
 
 @Controller('movies')
 export class MoviesController {
   constructor(
     private readonly movieService: MovieService, // public readonly httpService: HttpService,
+    private readonly movieRepo: MoviesRepository,
     private readonly httpService: HttpService,
   ) {}
 
@@ -93,6 +95,15 @@ export class MoviesController {
       availableTickets: movies.availableTickets,
     };
     return await this.movieService.updateOneMovie(+id, moviesForService);
+  }
+
+  @Patch(':id/update-ticket')
+  async updateAvailableTickets(
+    @Param('id') id: number,
+    @Body('ticketCount') ticketCount: number,
+  ) {
+    const updatedMovie = await this.movieRepo.updateQuantity(id, ticketCount);
+    return updatedMovie;
   }
 
   @Delete(':id')
