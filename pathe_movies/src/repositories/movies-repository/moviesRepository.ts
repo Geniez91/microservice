@@ -7,6 +7,7 @@ import { Observable, lastValueFrom } from 'rxjs';
 import { AxiosResponse } from 'axios';
 import { HttpService } from '@nestjs/axios';
 import candyRepositoryModel from './candiesRespositoryModel';
+import { DiscordService } from 'src/services/discord/discord.service';
 
 @Injectable()
 export class MoviesRepository {
@@ -14,6 +15,7 @@ export class MoviesRepository {
     @InjectRepository(Movies)
     private movieRepository: Repository<movieRepositoryModel>,
     private readonly httpService: HttpService,
+    private readonly discordService: DiscordService,
   ) {}
 
   async saveMovie(movieData: movieRepositoryModel): Promise<void> {
@@ -99,6 +101,13 @@ export class MoviesRepository {
     };
 
     const updatedMovie = await this.movieRepository.save(updateTickets);
+
+    this.discordService.sendNotification(
+      `${oldCandies.availableTickets - ticketCount} tickets restants ! pour ${
+        oldCandies.title
+      }`,
+    );
+
     return updatedMovie;
   }
 
