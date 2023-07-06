@@ -31,7 +31,7 @@
 />
 </v-col>
 <v-col cols="3">
-<v-btn>Ajouter</v-btn>
+<v-btn @click="validerReservation(movie.idMovies, numberValue)">Ajouter</v-btn>
 </v-col>
   
   </v-row>
@@ -52,7 +52,7 @@
 </template>
 
 <script>
-import { getMovies } from '../services/movies.services';
+import { getMovies,updateTicket } from '../services/movies.services';
 
 export default {
   data() {
@@ -73,7 +73,18 @@ export default {
         .catch(error => {
           console.error('Une erreur s\'est produite :', error);
         });
-    }
+    },
+    validerReservation(idMovies, numberValue) {
+      console.log(numberValue)
+    updateTicket(idMovies, numberValue)
+      .then(() => {
+        console.log('Réservation validée avec succès');
+      })
+      .catch(error => {
+        console.error('Une erreur s\'est produite lors de la réservation :', error);
+      });
+ 
   }
-};
+}
+}
 </script>
