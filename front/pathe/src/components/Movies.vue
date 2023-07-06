@@ -15,7 +15,7 @@
          variant="tonal"
 > 
 
-<v-img src="https://fr.web.img2.acsta.net/pictures/23/06/07/14/33/5787419.jpg" aspect-ratio="1"  cover class="fill-height fill-width mb-2" ></v-img>
+<v-img src="https://fr.web.img3.acsta.net/medias/nmedia/18/35/53/23/18423997.jpg" aspect-ratio="1"  cover class="fill-height fill-width mb-2" ></v-img>
   <div>
     {{ movie.description }}
   </div>
