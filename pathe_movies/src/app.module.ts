@@ -12,10 +12,10 @@ import { MoviesModule } from './movies.module';
   imports: [
     TypeOrmModule.forRoot({
       type: 'mariadb',
-      host: 'localhost',
+      host: 'mariadb',
       port: 3307,
       username: 'root',
-      password: '',
+      password: 'root',
       database: 'movies',
       entities: [Movies],
       synchronize: true, // crée les tables de la db

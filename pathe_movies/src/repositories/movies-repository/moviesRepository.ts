@@ -36,25 +36,21 @@ export class MoviesRepository {
     }
   }
 
-  async findAllCandies(): Promise<candyRepositoryModel[]> {
-    try {
-      const candyServiceUrl = 'http://localhost:3001/candies';
-      let response: Observable<AxiosResponse<candyRepositoryModel[]>>;
-      let candies: candyRepositoryModel[];
-
-      // eslint-disable-next-line prefer-const
-      response = this.httpService.get(candyServiceUrl);
-
-      const candyResponse = await lastValueFrom(response);
-
-      // eslint-disable-next-line prefer-const
-      candies = candyResponse.data;
-
-      return candies;
-    } catch (error) {
-      console.error(error);
-      throw error;
-    }
+  async findAllCandies(): Promise<any> {
+    // try {
+    //   const candyServiceUrl = 'http://localhost:3001/candies';
+    //   let response: Observable<AxiosResponse<candyRepositoryModel[]>>;
+    //   let candies: candyRepositoryModel[];
+    //   // eslint-disable-next-line prefer-const
+    //   response = this.httpService.get(candyServiceUrl);
+    //   const candyResponse = await lastValueFrom(response);
+    //   // eslint-disable-next-line prefer-const
+    //   candies = candyResponse.data;
+    //   return candies;
+    // } catch (error) {
+    //   console.error(error);
+    //   throw error;
+    // }
   }
   async findOneMovies(id: number): Promise<movieRepositoryModel> {
     const params: FindOneOptions<movieRepositoryModel> = {

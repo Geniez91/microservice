@@ -1,0 +1,74 @@
+version: '3'
+
+services:
+  mariadb:
+    image: mariadb:latest
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=movies
+      # - MYSQL_DATABASE=candies
+    volumes:
+      # - ./db/candies:/docker-entrypoint-initdb.d/candies
+      - ./db/movies:/docker-entrypoint-initdb.d/movies
+      - mariadb_data:/var/lib/mysql
+    ports:
+      - 3307:3307
+    networks:
+      - pathe_network
+
+  pathe_movies:
+    build:
+      context: ./pathe_movies
+    depends_on:
+      - mariadb
+      # - pathe_candies
+    environment:
+      - DB_HOST=mariadb
+      - DB_PORT=3307
+      - DB_USER=root
+      - DB_PASSWORD=root
+    ports:
+      - 3000:3000
+    networks:
+      - pathe_network
+
+  # pathe_candies:
+  #   build:
+  #     context: ./pathe_candies
+  #   depends_on:
+  #     - mariadb
+  #   environment:
+  #     - DB_HOST=mariadb
+  #     - DB_PORT=3307
+  #     - DB_USER=root
+  #     - DB_PASSWORD=root
+  #   ports:
+  #     - 3001:3001
+  #   networks:
+  #     - pathe_network
+
+  discord_tool:
+    build:
+      context: ./discord-tool
+    depends_on:
+      - pathe_movies
+    ports:
+      - 3002:3002
+    networks:
+      - pathe_network
+
+  front:
+    build:
+      context: ./front/pathe
+    ports:
+      - 5173:5173
+    depends_on:
+      - pathe_movies
+    networks:
+      - pathe_network
+
+volumes:
+  mariadb_data:
+
+networks:
+  pathe_network:

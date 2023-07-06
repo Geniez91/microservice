@@ -9,10 +9,10 @@ import { MoviesModule } from './candies.module';
   imports: [
     TypeOrmModule.forRoot({
       type: 'mariadb',
-      host: 'localhost',
+      host: 'mariadb',
       port: 3307,
       username: 'root',
-      password: '',
+      password: 'root',
       database: 'candies',
       entities: [Candies],
       synchronize: true, // crée les tables de la db
