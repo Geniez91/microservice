@@ -3,8 +3,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { FindOneOptions, Repository } from 'typeorm';
 import { movieRepositoryModel } from '../movies-repository/moviesRespositoryModel';
 import { Movies } from 'src/entities/movies.entity';
-import { Observable, lastValueFrom } from 'rxjs';
-import { AxiosResponse } from 'axios';
+import { Observable, lastValueFrom, map, tap } from 'rxjs';
+import axios, { AxiosResponse } from 'axios';
 import { HttpService } from '@nestjs/axios';
 import candyRepositoryModel from './candiesRespositoryModel';
 import { DiscordService } from 'src/services/discord/discord.service';
@@ -102,11 +102,13 @@ export class MoviesRepository {
 
     const updatedMovie = await this.movieRepository.save(updateTickets);
 
-    this.discordService.sendNotification(
-      `${oldCandies.availableTickets - ticketCount} tickets restants ! pour ${
-        oldCandies.title
-      }`,
-    );
+    const msg = {
+      message: `${
+        oldCandies.availableTickets - ticketCount
+      } tickets restants ! pour ${oldCandies.title}`,
+    };
+
+    await axios.post('http://localhost:3002/discord', msg);
 
     return updatedMovie;
   }
