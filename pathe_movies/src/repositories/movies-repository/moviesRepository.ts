@@ -104,7 +104,7 @@ export class MoviesRepository {
       } tickets restants ! pour ${oldCandies.title}`,
     };
 
-    await axios.post('http://localhost:3002/discord', msg);
+    await axios.post('http://discord_tool:3002/discord', msg);
 
     return updatedMovie;
   }
