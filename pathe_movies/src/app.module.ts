@@ -13,7 +13,7 @@ import { MoviesModule } from './movies.module';
     TypeOrmModule.forRoot({
       type: 'mariadb',
       host: 'mariadb',
-      port: 3307,
+      port: 3306,
       username: 'root',
       password: 'root',
       database: 'movies',
