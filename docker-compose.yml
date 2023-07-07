@@ -25,7 +25,7 @@ services:
       - mariadb
       # - pathe_candies
     ports:
-      - 3000:3000
+      - 3005:3005
     networks:
       - pathe_network
 
@@ -58,7 +58,7 @@ services:
     build:
       context: ./front/pathe
     ports:
-      - 5173:5173
+      - 3000:3000
     depends_on:
       - pathe_movies
     networks:

@@ -2,7 +2,7 @@ import type { IMovies } from "@/interfaces/movies";
 import axios from "axios";
 
 export function getMovies(): Promise<IMovies[]> {
-  return axios.get('http://localhost:3000/movies')
+  return axios.get('http://localhost:3005/movies')
     .then(response => response.data.movies)
     .catch(error => {
       console.error('Une erreur s\'est produite :', error);
@@ -13,7 +13,7 @@ export function updateTicket(idMovies:number, number_ticket:string) {
 
   const ticketCount = parseInt(number_ticket, 10);
   return axios
-    .patch(`http://localhost:3000/movies/${idMovies}/update-ticket`, {
+    .patch(`http://localhost:3005/movies/${idMovies}/update-ticket`, {
       ticketCount: ticketCount
     }, {
       headers: {
