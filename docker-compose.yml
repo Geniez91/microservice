@@ -6,15 +6,9 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_DATABASE=movies
-      # - MYSQL_USER=root
-      # - MYSQL_PASSWORD=root
-      # - MYSQL_DATABASE=candies
     volumes:
-      # - ./db/candies:/docker-entrypoint-initdb.d/candies
       - ./db/movies:/docker-entrypoint-initdb.d/movies
       - mariadb_data:/var/lib/mysql
-    # ports:
-    #   - 3306:3306
     networks:
       - pathe_network
 
@@ -23,26 +17,11 @@ services:
       context: ./pathe_movies
     depends_on:
       - mariadb
-      # - pathe_candies
     ports:
       - 3005:3005
     networks:
       - pathe_network
 
-  # pathe_candies:
-  #   build:
-  #     context: ./pathe_candies
-  #   depends_on:
-  #     - mariadb
-  #   environment:
-  #     - DB_HOST=mariadb
-  #     - DB_PORT=3307
-  #     - DB_USER=root
-  #     - DB_PASSWORD=root
-  #   ports:
-  #     - 3001:3001
-  #   networks:
-  #     - pathe_network
 
   discord_tool:
     build:
